@@ -1,0 +1,65 @@
+﻿from .anytype import *
+from ..core import CATEGORY
+
+class RvText_MergeStringsLarge:
+    def __init__(self):
+        pass
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+            },
+            "optional": {
+                "string_1": (any, {"default": ""}),
+                "string_2": (any, {"default": ""}),
+                "string_3": (any, {"default": ""}),
+                "string_4": (any, {"default": ""}),
+                "string_5": (any, {"default": ""}),
+                "string_6": (any, {"default": ""}),
+                "string_7": (any, {"default": ""}),
+                "string_8": (any, {"default": ""}),
+                "string_9": (any, {"default": ""}),
+                "string_10": (any, {"default": ""}),
+
+                "Delimiter": ("STRING", {"default": ", "}),
+            }
+        }
+
+    CATEGORY = CATEGORY.MAIN.value + CATEGORY.TEXT.value
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("string",)
+
+    FUNCTION = "execute"
+
+    def execute(self, Delimiter, **kwargs):
+
+        text_inputs = []
+
+        # Handle special case where delimiter is "\n" (literal newline).
+        if Delimiter in ("\n", "\\n"):
+            Delimiter = "\n"
+
+        # Iterate over the received inputs in sorted order.
+        for k in sorted(kwargs.keys()):
+            v = kwargs[k]
+
+            # Only process string input ports.
+            if isinstance(v, str):
+               if v != "":
+                  text_inputs.append(v)
+
+        merged_text = Delimiter.join(text_inputs)
+
+        return (merged_text,)
+
+NODE_NAME = 'Merge Strings (Large) // RvTools'
+NODE_DESC = 'Merge Strings (Large)'
+
+NODE_CLASS_MAPPINGS = {
+   NODE_NAME: RvText_MergeStringsLarge
+}
+
+NODE_DISPLAY_NAME_MAPPINGS = {
+    NODE_NAME: NODE_DESC
+}
