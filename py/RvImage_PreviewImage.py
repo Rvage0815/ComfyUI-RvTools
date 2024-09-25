@@ -23,7 +23,10 @@ class RvImage_PreviewImage():
     @classmethod
     def INPUT_TYPES(s):
         return {"required":
-                    {"images": ("IMAGE", ), },
+                    {
+                        "images": ("IMAGE", ), 
+                        "Show_Images": ("INT", {"default": 0,"min": 0,"max": sys.maxsize,"step": 1}), 
+                    },
                 "hidden": {"prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO"},
                 }
 
@@ -33,10 +36,11 @@ class RvImage_PreviewImage():
     FUNCTION = "execute"
     OUTPUT_NODE = True
 
-    def execute(self, images, filename_prefix="ComfyUI", prompt=None, extra_pnginfo=None):
+    def execute(self, images, filename_prefix="ComfyUI", Show_Images=0, prompt=None, extra_pnginfo=None):
         filename_prefix += self.prefix_append
         full_output_folder, filename, counter, subfolder, filename_prefix = folder_paths.get_save_image_path(filename_prefix, self.output_dir, images[0].shape[1], images[0].shape[0])
         results = list()
+
         for (batch_number, image) in enumerate(images):
             i = 255. * image.cpu().numpy()
             img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
@@ -50,6 +54,12 @@ class RvImage_PreviewImage():
                 "subfolder": subfolder,
                 "type": self.type
             })
+            
+
+            if Show_Images > 0: 
+               if (batch_number + 1) == Show_Images:
+                break 
+
             counter += 1
 
         return { "ui": { "images": results }, "result": (images,) }
