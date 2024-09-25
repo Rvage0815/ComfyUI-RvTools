@@ -145,7 +145,7 @@ class RCheckpointLoader_Pipe:
         return (rlist,)
 
 NODE_NAME = 'Checkpoint Loader II (Pipe) // RvTools'
-NODE_DESC = 'Checkpoint Loader (Pipe)'
+NODE_DESC = 'Checkpoint Loader II (Pipe)'
 
 NODE_CLASS_MAPPINGS = {
    NODE_NAME: RCheckpointLoader_Pipe

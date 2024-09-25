@@ -133,7 +133,7 @@ class RCheckpointLoader:
         return (ckpt[:3][0], vae, clip, {"samples": latent},)
 
 NODE_NAME = 'Checkpoint Loader II // RvTools'
-NODE_DESC = 'Checkpoint Loader'
+NODE_DESC = 'Checkpoint Loader II'
 
 NODE_CLASS_MAPPINGS = {
    NODE_NAME: RCheckpointLoader
