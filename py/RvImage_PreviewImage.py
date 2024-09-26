@@ -25,7 +25,7 @@ class RvImage_PreviewImage():
         return {"required":
                     {
                         "images": ("IMAGE", ), 
-                        "Show_Images": ("INT", {"default": 0,"min": 0,"max": sys.maxsize,"step": 1}), 
+                        "Show_Images": ("INT", {"default": -1,"min": -1,"max": sys.maxsize,"step": 1}), 
                     },
                 "hidden": {"prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO"},
                 }
@@ -42,6 +42,8 @@ class RvImage_PreviewImage():
         results = list()
 
         for (batch_number, image) in enumerate(images):
+            if Show_Images == 0: break # no preview for whatever reason
+
             i = 255. * image.cpu().numpy()
             img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
             metadata = None
@@ -56,7 +58,7 @@ class RvImage_PreviewImage():
             })
             
 
-            if Show_Images > 0: 
+            if Show_Images > -1: #-1 will display all images
                if (batch_number + 1) == Show_Images:
                 break 
 
