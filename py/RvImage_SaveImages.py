@@ -303,7 +303,7 @@ class RvImage_SaveImages:
 
         
         if pipe_opt != None:
-            steps, cfg, sampler_name, scheduler, positive, negative, modelname, width, height, seed_value, loras = pipe_opt
+            steps, cfg, sampler_name, scheduler, positive, negative, modelname, width, height, seed_value, sloras = pipe_opt
 
             ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
             unet_path = folder_paths.get_full_path("unet", modelname)
@@ -318,8 +318,12 @@ class RvImage_SaveImages:
             else:
                 modelhash = ""
 
+            if sloras != "":
+                positive += str(sloras)
+
             metadata_extractor = PromptMetadataExtractor([positive, negative])
             embeddings = metadata_extractor.get_embeddings()
+
             loras = metadata_extractor.get_loras()
             civitai_sampler_name = self.get_civitai_sampler_name(sampler_name.replace('_gpu', ''), scheduler)
 
