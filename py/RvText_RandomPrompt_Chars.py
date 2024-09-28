@@ -81,7 +81,7 @@ class RvText_RandomPrompt:
         return (final_values,)
 
 NODE_NAME = 'Random Prompt: Characters // RvTools'
-NODE_DESC = 'Random Prompt: Characters'
+NODE_DESC = 'Random Prompt: Subjects'
 
 NODE_CLASS_MAPPINGS = {
    NODE_NAME: RvText_RandomPrompt
