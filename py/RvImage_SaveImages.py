@@ -70,6 +70,11 @@ def civitai_lora_key_name(lora: str):
     return f'LORA:{lora}'
 #---------------------------------------------------------------------------------------------------------------------#
 
+def civitai_model_key_name(model: str):
+    return f'Model:{model}'
+#---------------------------------------------------------------------------------------------------------------------#
+
+
 """
 Based on a embedding name, eg: EasyNegative, finds the path as known in comfy, including extension
 """
@@ -98,6 +103,7 @@ def full_lora_path_for(lora: str):
         cstr(f'RvTools: could not find full path to lora "{lora}"').error.print()
         return None
     return folder_paths.get_full_path("loras", matching_lora)
+
 
 def __list_loras():
     return folder_paths.get_filename_list("loras")
@@ -305,43 +311,52 @@ class RvImage_SaveImages:
         if pipe_opt != None:
             steps, cfg, sampler_name, scheduler, positive, negative, modelname, width, height, seed_value, sloras = pipe_opt
 
-            ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
-            unet_path = folder_paths.get_full_path("unet", modelname)
-            diff_path = folder_paths.get_full_path("diffusion_models", modelname)
-        
-            if ckpt_path:
-                modelhash = get_sha256(ckpt_path)[:10]
-            elif unet_path:
-                modelhash = get_sha256(unet_path)[:10]
-            elif diff_path:
-                modelhash = get_sha256(diff_path)[:10]
-            else:
-                modelhash = ""
+            ckpt_path = ''
+            diffusion_path = ''
 
-            if sloras != "":
-                positive += str(sloras)
+            model_string = {}
+            basemodelname = ''
+            
+            models = modelname.split(', ')
+
+            for model in models:
+                if model:
+                    ckpt_path = folder_paths.get_full_path("checkpoints", model)
+                    diffusion_path = folder_paths.get_full_path("diffusion_models", model)
+        
+                    if ckpt_path:
+                        modelhash = get_sha256(ckpt_path)[:10]
+                    elif diffusion_path:
+                        modelhash = get_sha256(diffusion_path)[:10]
+                    else:
+                        modelhash = ""
+                    
+                    basemodelname = civitai_model_key_name(parse_checkpoint_name_without_extension(model))
+                    model_string[basemodelname] = modelhash
+
+                    #model_string += f'"Model: {basemodelname}":"{modelhash}", '
+
+                    #model_string += f"Model hash: {modelhash}, Model: {basemodelname}, "
+                    
+            cstr(f"model_string: {model_string}").msg.print()
+
+            if sloras != "": 
+                positive += str(sloras) #add the loras to the prompt for PromptMetadataExtractor
 
             metadata_extractor = PromptMetadataExtractor([positive, negative])
             embeddings = metadata_extractor.get_embeddings()
-
             loras = metadata_extractor.get_loras()
             civitai_sampler_name = self.get_civitai_sampler_name(sampler_name.replace('_gpu', ''), scheduler)
-
-            extension_hashes = json.dumps(embeddings | loras | { "model": modelhash })
-            basemodelname = parse_checkpoint_name_without_extension(modelname)
+            extension_hashes = json.dumps(model_string | embeddings | loras | { "model": modelhash })
 
             if not remove_prompts:
-                positive_a111_params = handle_whitespace(positive)
+                positive_a111_params = handle_whitespace(positive) 
                 negative_a111_params = f"\nNegative prompt: {handle_whitespace(negative)}"
-                a111_params = f"{positive_a111_params}{negative_a111_params}\nSteps: {steps}, Sampler: {civitai_sampler_name}, CFG scale: {cfg}, Seed: {seed_value}, Size: {width}x{height}, Model hash: {modelhash}, Model: {basemodelname}, Hashes: {extension_hashes}, Version: ComfyUI"
+                a111_params = f"{positive_a111_params}{negative_a111_params}\nSteps: {steps}, Sampler: {civitai_sampler_name}, CFG scale: {cfg}, Seed: {seed_value}, Size: {width}x{height}, Hashes: {extension_hashes}, Version: ComfyUI"
             else:
                 positive_a111_params = ''
                 negative_a111_params = f"\nNegative prompt: "
-                a111_params = f"{positive_a111_params}{negative_a111_params}\nSteps: {steps}, Sampler: {civitai_sampler_name}, CFG scale: {cfg}, Seed: {seed_value}, Size: {width}x{height}, Model hash: {modelhash}, Model: {basemodelname}, Hashes: {extension_hashes}, Version: ComfyUI"
-        else:
-            positive_a111_params = ''
-            negative_a111_params = f"\nNegative prompt: "
-            a111_params = f"{positive_a111_params}{negative_a111_params}\nSteps: 20, Sampler: Euler, CFG scale: 7.0, Seed: 1, Size: 512x51, Model hash: 0, Model: , Hashes: , Version: ComfyUI"
+                a111_params = f"{positive_a111_params}{negative_a111_params}\nSteps: {steps}, Sampler: {civitai_sampler_name}, CFG scale: {cfg}, Seed: {seed_value}, Size: {width}x{height}, Hashes: {extension_hashes}, Version: ComfyUI"
 
 
         delimiter = filename_delimiter
