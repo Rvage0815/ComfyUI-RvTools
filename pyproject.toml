@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-rvtools"
-description = "this nodes set contains a lot of small little helpers that i use a lot to build my workflows."
-version = "2.0.3"
+description = "this node contains a lot of small little helpers like switches, passers and selectors that i use a lot to build my workflows."
+version = "2.0.4"
 license = { file = "LICENSE" }
 dependencies = ["torch", "numpy", "Pillow"]
 
