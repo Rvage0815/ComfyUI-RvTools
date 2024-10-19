@@ -4,7 +4,7 @@ import os
 from ..core import CATEGORY
 
 script_directory = os.path.dirname(__file__)
-folder_path = os.path.join(script_directory, "..\csv" )
+folder_path = os.path.join(script_directory, "..", "csv" )
 
 def getfilename(folder):
     name = []
