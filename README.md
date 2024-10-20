@@ -11,7 +11,7 @@ firstly because you need at least two nodes to create such a group and secondly 
 creating such a group offers the possibility to “hide” inputs/outputs or widgets, e.g. to reduce the size.
 
 <b><h2>Switches:</h2></b>
-image switch, a masterpiece imo i like to use a lot of them xd found and snagged from the comfyroll node set and altered to all the switches in this set. 
+image switch, a masterpiece imo i like to use a lot of them xd found and shamelessly taken from the comfyroll node set and altered to all the switches in this set. 
 i think i've asked the creator once for an integer switch but that request was ignored so here we are^^
 when bypassed, this node sends what ever is connected to input 1 to the target, if the standard value is 2 and it is enabled it sends what ever is connected to input 2. 
 very helpful in workflows with a lot of groups that can be bypassed (not muted) like mine.
@@ -25,5 +25,10 @@ for the switch to work, the nodes that can be bypassed should be connected to th
 is always enabled and a node that is always enabled and connected to the first slot will never be none and the other slots are ignored.
 
 ![multi_switches](https://github.com/user-attachments/assets/bda901ca-287b-4fc0-879a-3778ef893387)
+
+<b><h2>Project Folder, Checkpoint Loader, Save Image with Generation Data, Sampler Settings, Aspect Ratio:</h2></b>
+
+![Save_GenData](https://github.com/user-attachments/assets/666dfd84-8501-46a7-9760-45115d73cf6b)
+
 
 <b><h2>...to be continued</h2></b>
