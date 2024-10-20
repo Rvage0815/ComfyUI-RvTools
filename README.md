@@ -20,8 +20,8 @@ very helpful in workflows with a lot of groups that can be bypassed (not muted) 
 ![iswitch](https://github.com/user-attachments/assets/c87cac6b-5205-4423-8d32-933d31343f2f)
 
 <b><h2>Multi Switches:</h2></b>
-these switches return the first value that is not none. helpful if you have different clip models to choose from that can be bypassed via an options menu. 
-e.g. the clip from the checkpoint loader, a triple clip loader and a dual clip loader. 
+these switches return the first Slot that is not none. helpful if you have different clip models to choose from that can be bypassed via an options menu. 
+e.g. the clip from the checkpoint loader, a dual clip loader (flux) and a triple clip loader (sd3). <br>
 for the switch to work, the nodes that can be bypassed should be connected to the first slots and the clip from the checkpoint loader last because this node 
 is always enabled and a node that is always enabled and connected to the first slot will never be none and the other slots are ignored.
 
@@ -33,4 +33,3 @@ is always enabled and a node that is always enabled and connected to the first s
 
 
 <b><h2>...to be continued</h2></b>
-![rvt](https://github.com/user-attachments/assets/072a48de-3c27-4dd9-9b7f-a9af11ede3e3)
