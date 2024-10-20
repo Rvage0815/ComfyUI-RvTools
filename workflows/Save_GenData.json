@@ -1,0 +1,1013 @@
+{
+  "last_node_id": 14,
+  "last_link_id": 19,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Checkpoint Loader (Small Pipe) // RvTools",
+      "pos": {
+        "0": 28,
+        "1": 53
+      },
+      "size": {
+        "0": 378,
+        "1": 178
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "pipe",
+          "type": "pipe",
+          "links": [
+            1
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Checkpoint Loader (Small Pipe) // RvTools"
+      },
+      "widgets_values": [
+        "Flux\\fluxunchainedArtfulNSFW_fuT516xfp8E4m3fnV11.safetensors",
+        "Baked VAE",
+        true,
+        true,
+        -1,
+        1
+      ]
+    },
+    {
+      "id": 5,
+      "type": "Sampler Settings (Simple) // RvTools",
+      "pos": {
+        "0": 91,
+        "1": 476
+      },
+      "size": {
+        "0": 315,
+        "1": 202
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "pipe",
+          "type": "pipe",
+          "links": [
+            3
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Sampler Settings (Simple) // RvTools"
+      },
+      "widgets_values": [
+        "euler",
+        "normal",
+        20,
+        3.5,
+        3.5,
+        "None",
+        0.5
+      ]
+    },
+    {
+      "id": 10,
+      "type": "CLIPTextEncode",
+      "pos": {
+        "0": 524,
+        "1": 506
+      },
+      "size": {
+        "0": 210,
+        "1": 54
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 19
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 6,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 8,
+      "type": "String Multiline // RvTools",
+      "pos": {
+        "0": 439,
+        "1": 276
+      },
+      "size": {
+        "0": 295,
+        "1": 173
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": [
+            6,
+            7
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "String Multiline // RvTools"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 7,
+      "type": "String Multiline // RvTools",
+      "pos": {
+        "0": 439,
+        "1": 55
+      },
+      "size": [
+        295,
+        173
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": [
+            5,
+            8
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "String Multiline // RvTools"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 9,
+      "type": "CLIPTextEncode",
+      "pos": {
+        "0": 759,
+        "1": 53
+      },
+      "size": [
+        210,
+        54
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 18
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 5,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 3,
+      "type": "Save Images // RvTools",
+      "pos": {
+        "0": 1333,
+        "1": 235
+      },
+      "size": {
+        "0": 315,
+        "1": 414
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "pipe_opt",
+          "type": "pipe",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "files",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Save Images // RvTools"
+      },
+      "widgets_values": [
+        "[time(%Y-%m-%d)]",
+        "image",
+        "_",
+        4,
+        false,
+        "png",
+        300,
+        100,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": 6,
+      "type": "Sampler Settings Out (Simple) // RvTools",
+      "pos": {
+        "0": 162,
+        "1": 723
+      },
+      "size": [
+        244,
+        166
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pipe",
+          "type": "pipe",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "pipe",
+          "type": "pipe",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "sampler",
+          "type": "*",
+          "links": [
+            9
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "scheduler",
+          "type": "*",
+          "links": [
+            10
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "links": [
+            11
+          ],
+          "shape": 3,
+          "slot_index": 3
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "links": [
+            12
+          ],
+          "shape": 3,
+          "slot_index": 4
+        },
+        {
+          "name": "flux_guidance",
+          "type": "FLOAT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "upscale_model",
+          "type": "UPSCALE_MODEL",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "scale_by",
+          "type": "FLOAT",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Sampler Settings Out (Simple) // RvTools"
+      }
+    },
+    {
+      "id": 11,
+      "type": "Seed (rgthree)",
+      "pos": {
+        "0": 524,
+        "1": 755
+      },
+      "size": {
+        "0": 210,
+        "1": 130
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": [
+            13
+          ],
+          "shape": 3,
+          "dir": 4,
+          "slot_index": 0
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        -1,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 12,
+      "type": "Aspect Ratio (All) // RvTools",
+      "pos": {
+        "0": 472,
+        "1": 620
+      },
+      "size": [
+        262,
+        78
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            14
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            15
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Aspect Ratio (All) // RvTools"
+      },
+      "widgets_values": [
+        "SD15 - 512x512 (1:1)"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "LoRA Stack to String converter",
+      "pos": {
+        "0": 857,
+        "1": 864
+      },
+      "size": [
+        252,
+        26
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "lora_stack",
+          "type": "LORA_STACK",
+          "link": 16
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LoRA string",
+          "type": "STRING",
+          "links": [
+            17
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoRA Stack to String converter"
+      }
+    },
+    {
+      "id": 2,
+      "type": "Checkpoint Loader Small Pipe-Out // RvTools",
+      "pos": {
+        "0": 137,
+        "1": 282
+      },
+      "size": [
+        269,
+        146
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pipe",
+          "type": "pipe",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "pipe",
+          "type": "pipe",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "links": [
+            18,
+            19
+          ],
+          "shape": 3,
+          "slot_index": 2
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "batch_size",
+          "type": "INT",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "model_name",
+          "type": "STRING",
+          "links": [
+            4
+          ],
+          "shape": 3,
+          "slot_index": 5
+        },
+        {
+          "name": "vae_name",
+          "type": "STRING",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Checkpoint Loader Small Pipe-Out // RvTools"
+      }
+    },
+    {
+      "id": 13,
+      "type": "ttN pipeLoraStack",
+      "pos": {
+        "0": 795,
+        "1": 606
+      },
+      "size": [
+        310,
+        214
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "optional_pipe",
+          "type": "PIPE_LINE",
+          "link": null
+        },
+        {
+          "name": "model_override",
+          "type": "MODEL",
+          "link": null
+        },
+        {
+          "name": "clip_override",
+          "type": "CLIP",
+          "link": null
+        },
+        {
+          "name": "optional_lora_stack",
+          "type": "LORA_STACK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "optional_pipe",
+          "type": "PIPE_LINE",
+          "links": null,
+          "shape": 3
+        },
+        {
+          "name": "lora_stack",
+          "type": "LORA_STACK",
+          "links": [
+            16
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ttN pipeLoraStack"
+      },
+      "widgets_values": [
+        true,
+        "simple",
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1,
+        "None",
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": 4,
+      "type": "Params In // RvTools",
+      "pos": {
+        "0": 1099,
+        "1": 235
+      },
+      "size": [
+        218,
+        254
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pipe",
+          "type": "pipe",
+          "link": null
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 11,
+          "widget": {
+            "name": "steps"
+          }
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 12,
+          "widget": {
+            "name": "cfg"
+          }
+        },
+        {
+          "name": "sampler_name",
+          "type": "STRING",
+          "link": 9,
+          "widget": {
+            "name": "sampler_name"
+          }
+        },
+        {
+          "name": "scheduler",
+          "type": "STRING",
+          "link": 10,
+          "widget": {
+            "name": "scheduler"
+          }
+        },
+        {
+          "name": "positive",
+          "type": "STRING",
+          "link": 8,
+          "widget": {
+            "name": "positive"
+          }
+        },
+        {
+          "name": "negative",
+          "type": "STRING",
+          "link": 7,
+          "widget": {
+            "name": "negative"
+          }
+        },
+        {
+          "name": "modelname",
+          "type": "STRING",
+          "link": 4,
+          "widget": {
+            "name": "modelname"
+          }
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 14,
+          "widget": {
+            "name": "width"
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 15,
+          "widget": {
+            "name": "height"
+          }
+        },
+        {
+          "name": "seed_value",
+          "type": "INT",
+          "link": 13,
+          "widget": {
+            "name": "seed_value"
+          }
+        },
+        {
+          "name": "loras",
+          "type": "STRING",
+          "link": 17,
+          "widget": {
+            "name": "loras"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "pipe",
+          "type": "pipe",
+          "links": [
+            2
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Params In // RvTools"
+      },
+      "widgets_values": [
+        0,
+        0,
+        "",
+        "",
+        "",
+        "",
+        "",
+        0,
+        0,
+        0,
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "pipe"
+    ],
+    [
+      2,
+      4,
+      0,
+      3,
+      1,
+      "pipe"
+    ],
+    [
+      3,
+      5,
+      0,
+      6,
+      0,
+      "pipe"
+    ],
+    [
+      4,
+      2,
+      5,
+      4,
+      7,
+      "STRING"
+    ],
+    [
+      5,
+      7,
+      0,
+      9,
+      1,
+      "STRING"
+    ],
+    [
+      6,
+      8,
+      0,
+      10,
+      1,
+      "STRING"
+    ],
+    [
+      7,
+      8,
+      0,
+      4,
+      6,
+      "STRING"
+    ],
+    [
+      8,
+      7,
+      0,
+      4,
+      5,
+      "STRING"
+    ],
+    [
+      9,
+      6,
+      1,
+      4,
+      3,
+      "STRING"
+    ],
+    [
+      10,
+      6,
+      2,
+      4,
+      4,
+      "STRING"
+    ],
+    [
+      11,
+      6,
+      3,
+      4,
+      1,
+      "INT"
+    ],
+    [
+      12,
+      6,
+      4,
+      4,
+      2,
+      "FLOAT"
+    ],
+    [
+      13,
+      11,
+      0,
+      4,
+      10,
+      "INT"
+    ],
+    [
+      14,
+      12,
+      0,
+      4,
+      8,
+      "INT"
+    ],
+    [
+      15,
+      12,
+      1,
+      4,
+      9,
+      "INT"
+    ],
+    [
+      16,
+      13,
+      1,
+      14,
+      0,
+      "LORA_STACK"
+    ],
+    [
+      17,
+      14,
+      0,
+      4,
+      11,
+      "STRING"
+    ],
+    [
+      18,
+      2,
+      2,
+      9,
+      0,
+      "CLIP"
+    ],
+    [
+      19,
+      2,
+      2,
+      10,
+      0,
+      "CLIP"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
