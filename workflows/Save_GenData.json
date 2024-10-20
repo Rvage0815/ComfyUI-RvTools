@@ -1,6 +1,6 @@
 {
-  "last_node_id": 14,
-  "last_link_id": 19,
+  "last_node_id": 18,
+  "last_link_id": 24,
   "nodes": [
     {
       "id": 1,
@@ -91,7 +91,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 11,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
@@ -203,7 +203,7 @@
         54
       ],
       "flags": {},
-      "order": 10,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -242,12 +242,12 @@
         "0": 1333,
         "1": 235
       },
-      "size": {
-        "0": 315,
-        "1": 414
-      },
+      "size": [
+        315,
+        414
+      ],
       "flags": {},
-      "order": 13,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
@@ -259,6 +259,14 @@
           "name": "pipe_opt",
           "type": "pipe",
           "link": 2
+        },
+        {
+          "name": "output_path",
+          "type": "STRING",
+          "link": 24,
+          "widget": {
+            "name": "output_path"
+          }
         }
       ],
       "outputs": [
@@ -308,7 +316,7 @@
         166
       ],
       "flags": {},
-      "order": 8,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -472,7 +480,7 @@
         26
       ],
       "flags": {},
-      "order": 9,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -508,7 +516,7 @@
         146
       ],
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -726,7 +734,7 @@
         254
       ],
       "flags": {},
-      "order": 12,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -850,6 +858,167 @@
         0,
         ""
       ]
+    },
+    {
+      "id": 16,
+      "type": "Pass Integer // RvTools",
+      "pos": {
+        "0": -275,
+        "1": 282
+      },
+      "size": [
+        210,
+        34
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "int1",
+          "type": "INT",
+          "link": 22,
+          "widget": {
+            "name": "int1"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            20
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Pass Integer // RvTools"
+      },
+      "widgets_values": [
+        0
+      ]
+    },
+    {
+      "id": 17,
+      "type": "PrimitiveNode",
+      "pos": {
+        "0": -276,
+        "1": 360
+      },
+      "size": [
+        297,
+        82
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            22
+          ],
+          "widget": {
+            "name": "int1"
+          }
+        }
+      ],
+      "title": "int1",
+      "properties": {
+        "Run widget replace on values": false
+      },
+      "widgets_values": [
+        0,
+        "increment"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "Project Folder // RvTools",
+      "pos": {
+        "0": -273,
+        "1": 56
+      },
+      "size": [
+        274,
+        178
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "batch_no",
+          "type": "*",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            23
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Project Folder // RvTools"
+      },
+      "widgets_values": [
+        "iGen",
+        "%Y-%m-%d",
+        "postfix",
+        false,
+        "batch_{}",
+        true
+      ]
+    },
+    {
+      "id": 18,
+      "type": "Reroute",
+      "pos": {
+        "0": 1247,
+        "1": 49
+      },
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 23,
+          "widget": {
+            "name": "value"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "STRING",
+          "links": [
+            24
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
     }
   ],
   "links": [
@@ -1004,6 +1173,38 @@
       10,
       0,
       "CLIP"
+    ],
+    [
+      20,
+      16,
+      0,
+      15,
+      0,
+      "*"
+    ],
+    [
+      22,
+      17,
+      0,
+      16,
+      0,
+      "INT"
+    ],
+    [
+      23,
+      15,
+      0,
+      18,
+      0,
+      "*"
+    ],
+    [
+      24,
+      18,
+      0,
+      3,
+      2,
+      "STRING"
     ]
   ],
   "groups": [],
