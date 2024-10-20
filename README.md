@@ -1,8 +1,9 @@
-Readme RvTools
+<b><h2>Readme RvTools:</h2></b>
 
-i created the set of nodes because some nodes did not exist or do not exist in the other sets, starting with the passers and switches. 
+i created this set of nodes because some nodes did not exist or do not exist in the other sets, starting with the passers and switches. 
 Also, the comfyui manager quite often had problems displaying the correct nodes I used in my workflows, which caused problems for the users. 
 so in the end I just adopted some of them to avoid messages like “the workflow doesn't work”.<br><br>
+![rvt](https://github.com/user-attachments/assets/072a48de-3c27-4dd9-9b7f-a9af11ede3e3)
 
 <b><h2>Passers:</h2></b>
 the passers have several uses. originally they were created to be placed in front of nodes that had problems getting information from bypassed nodes. 
@@ -32,3 +33,4 @@ is always enabled and a node that is always enabled and connected to the first s
 
 
 <b><h2>...to be continued</h2></b>
+![rvt](https://github.com/user-attachments/assets/072a48de-3c27-4dd9-9b7f-a9af11ede3e3)
