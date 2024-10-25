@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-rvtools"
 description = "this node contains a lot of small little helpers like switches, passers and selectors that i use a lot to build my workflows."
-version = "2.0.4"
+version = "2.0.5"
 license = { file = "LICENSE" }
 dependencies = ["torch", "numpy", "Pillow"]
 
@@ -9,6 +9,6 @@ dependencies = ["torch", "numpy", "Pillow"]
 Repository = "https://github.com/Rvage0815/ComfyUI-RvTools"
 
 [tool.comfy]
-PublisherId = "rvage0815"
+PublisherId = "Rvage0815"
 DisplayName = "ComfyUI-RvTools"
 Icon = ""
