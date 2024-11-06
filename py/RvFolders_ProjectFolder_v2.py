@@ -1,13 +1,36 @@
-import comfy
-import comfy.sd
-import torch
+import os
 import folder_paths
 
+from datetime import datetime
 from ..core import CATEGORY
+from .anytype import *
 
 MAX_RESOLUTION = 32768
 
-class RCheckpointLoader:
+def format_datetime(datetime_format):
+    today = datetime.now()
+    try:
+        timestamp = today.strftime(datetime_format)
+    except:
+        timestamp = today.strftime("%Y-%m-%d-%H%M%S")
+
+    return timestamp
+
+def format_date_time(string, position, datetime_format):
+    today = datetime.now()
+    if position == "prefix":
+        return f"{today.strftime(datetime_format)}_{string}"
+    if position == "postfix":
+        return f"{string}_{today.strftime(datetime_format)}"
+
+def format_variables(string, input_variables):
+    if input_variables:
+        variables = str(input_variables).split(",")
+        return string.format(*variables)
+    else:
+        return string
+
+class RvFolders_ProjectFolder_v2:
     resolution =     ["Custom",
                       "512x512 (1:1)",              
                       "512x682 (3:4)",
@@ -16,72 +39,68 @@ class RCheckpointLoader:
                       "512x952 (1:1.85)",
                       "512x1024 (1:2)",
                       "512x1224 (1:2.39)",
+                      "640x1536 (9:21)",
                       "682x512 (4:3)",
                       "768x512 (3:2)",
-                      "910x512 (16:9)",
-                      "952x512 (1.85:1)",
-                      "1024x512 (2:1)",
-                      "1224x512 (2.39:1)",
-                      "640x1536 (9:21)",
                       "768x1344 (9:16)",
                       "832x1216 (2:3)",
                       "896x1152 (3:4)",
+                      "910x512 (16:9)",
+                      "952x512 (1.85:1)",
+                      "1024x512 (2:1)",
                       "1024x1024 (1:1)",
                       "1152x896 (4:3)",
                       "1216x832 (3:2)",
+                      "1224x512 (2.39:1)",
                       "1344x768 (16:9)",
                       "1536x640 (21:9)" 
                       ]
 
     def __init__(self):
-        pass
+        self.output_dir = folder_paths.get_output_directory()
 
     @classmethod
-    def INPUT_TYPES(s):
+    def INPUT_TYPES(cls):
         return {
             "required": {
-                "Checkpoint": (folder_paths.get_filename_list("checkpoints"),),
-                "Vae": (["Baked VAE"] + folder_paths.get_filename_list("vae"),),
-                "Baked_Clip": ("BOOLEAN", {"default": True},),
-                "Use_Clip_Layer": ("BOOLEAN", {"default": True},),
-                "stop_at_clip_layer": ("INT", {"default": -1, "min": -24, "max": -1, "step": 1},),
-                "resolution": (s.resolution,),
+                "project_root_name": ("STRING", {"multiline": False, "default": "MyProject"}),
+                "date_time_format": ("STRING", {"multiline": False, "default": "%Y-%m-%d"}),
+                "add_date_time": (["disable", "prefix", "postfix"], {"default": "postfix"}),
+                "batch_folder_name": ("STRING", {"multiline": False, "default": "batch_{}"}),                
+                "create_batch_folder": ("BOOLEAN", {"default": False}),
+                "relative_path": ("BOOLEAN", {"default": True}),
+                "resolution": (cls.resolution,),
                 "width": ("INT", {"default": 512, "min": 16, "max": MAX_RESOLUTION, "step": 8},),
                 "height": ("INT", {"default": 512, "min": 16, "max": MAX_RESOLUTION, "step": 8},),
                 "batch_size": ("INT", {"default": 1, "min": 1, "max": 4096}),
             },
+            "optional": {
+                "batch_no": (any, {"forceInput": True})
+            }
         }
 
-    CATEGORY = CATEGORY.MAIN.value + CATEGORY.CHECKPOINT.value
-
-    RETURN_TYPES = ("MODEL", "VAE", "CLIP", "LATENT",)
-    RETURN_NAMES = ("model", "vae", "clip", "latent",)
+    CATEGORY = CATEGORY.MAIN.value + CATEGORY.FOLDER.value
+    RETURN_TYPES = ("STRING", "INT",   "INT",    "INT")
+    RETURN_NAMES = ("path",   "width", "height", "batch_size")
+    
     FUNCTION = "execute"
+    
+    def execute(self, project_root_name, add_date_time, date_time_format, relative_path, create_batch_folder, batch_folder_name, batch_size, resolution, width, height, batch_no=None):
 
-    def execute(self, Checkpoint, Vae, Baked_Clip, Use_Clip_Layer, stop_at_clip_layer, batch_size, resolution, width, height):
-        ckpt_path = folder_paths.get_full_path("checkpoints", Checkpoint)
-        output_vae = False
+        mDate = format_datetime(date_time_format)
+        new_path = project_root_name
 
-        if Vae == "Baked VAE": output_vae = True
+        if add_date_time == "prefix":
+            new_path = os.path.join(mDate, project_root_name)
+        elif add_date_time == "postfix":
+            new_path = os.path.join(project_root_name, mDate)
 
-        ckpt = comfy.sd.load_checkpoint_guess_config(ckpt_path, output_vae=output_vae, output_clip=Baked_Clip, embedding_directory=folder_paths.get_folder_paths("embeddings"),)
+        if create_batch_folder:
+           folder_name_parsed = format_variables(batch_folder_name, batch_no)
+           new_path = os.path.join(new_path, folder_name_parsed)
 
-        vae_path = ""
-
-        if Vae == "Baked VAE":
-            vae = ckpt[:3][2]
-        else:
-            vae_path = folder_paths.get_full_path("vae", Vae)
-            vae = comfy.sd.VAE(sd=comfy.utils.load_torch_file(vae_path))
-
-        if Baked_Clip:
-            clip = ckpt[:3][1].clone()
-            if Use_Clip_Layer: clip.clip_layer(stop_at_clip_layer)
-        else:
-            clip = None
-
-        #if(resolution == "Custom"):
-            #width, height = 512, 512
+        if(resolution == "Custom"):
+            width, height = 512, 512
         if(resolution == "512x512 (1:1)"):
             width, height = 512, 512
         if(resolution == "512x682 (3:4)"):
@@ -128,15 +147,18 @@ class RCheckpointLoader:
         if(resolution == "1536x640 (21:9)"):
             width, height = 1536, 640
 
-        latent = torch.zeros([batch_size, 4, height // 8, width // 8])
 
-        return (ckpt[:3][0], vae, clip, {"samples": latent},)
+        if relative_path:
+            return ("./" + new_path, width, height, batch_size)
+        else:
+            return (os.path.join(self.output_dir, new_path), width, height, batch_size)
+    
 
-NODE_NAME = 'Checkpoint Loader II // RvTools'
-NODE_DESC = 'Checkpoint Loader v2'
+NODE_NAME = 'Project Folder v2// RvTools'
+NODE_DESC = 'Project Folder v2'
 
 NODE_CLASS_MAPPINGS = {
-   NODE_NAME: RCheckpointLoader
+   NODE_NAME: RvFolders_ProjectFolder_v2
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {

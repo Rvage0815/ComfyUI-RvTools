@@ -21,7 +21,7 @@ class RvPipe_Checkpoint_Loader_Small_IN:
             }
         }
 
-    CATEGORY = CATEGORY.MAIN.value + CATEGORY.PIPE.value
+    CATEGORY = CATEGORY.MAIN.value + CATEGORY.CHECKPOINT.value
     RETURN_TYPES = ("pipe",)
 
     FUNCTION = "execute"
@@ -49,7 +49,7 @@ class RvPipe_Checkpoint_Loader_Small_IN:
         return (RBusAnyMod,)
 
 NODE_NAME = 'Checkpoint Loader Small Pipe-In // RvTools'
-NODE_DESC = 'Checkpoint Loader Small Pipe-In'
+NODE_DESC = 'Pipe Out (Checkpoint Loader Small + v3)'
 
 NODE_CLASS_MAPPINGS = {
    NODE_NAME: RvPipe_Checkpoint_Loader_Small_IN

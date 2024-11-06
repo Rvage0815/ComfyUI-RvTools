@@ -313,34 +313,49 @@ class RvImage_SaveImages:
 
             ckpt_path = ''
             diffusion_path = ''
+            """
+            cstr(f"steps: {steps}").msg.print()
+            cstr(f"cfg: {cfg}").msg.print()
+            cstr(f"sampler_name: {sampler_name}").msg.print()
+            cstr(f"scheduler: {scheduler}").msg.print()
+            cstr(f"positive: {positive}").msg.print()
+            cstr(f"negative: {negative}").msg.print()
+            cstr(f"modelname: {modelname}").msg.print()
+            cstr(f"width: {width}").msg.print()
+            cstr(f"height: {height}").msg.print()
+            cstr(f"seed_value: {seed_value}").msg.print()
+            cstr(f"sloras: {sloras}").msg.print()
+            """
+
+            if positive in (None, 'undefined', 'None'): positive = ""
+            if negative in (None, 'undefined', 'None'): negative = ""
 
             model_string = {}
             basemodelname = ''
             
-            models = modelname.split(', ')
+            if not modelname in (None, 'undefined', 'None'):
+                models = modelname.split(', ')
 
-            for model in models:
-                if model:
-                    ckpt_path = folder_paths.get_full_path("checkpoints", model)
-                    diffusion_path = folder_paths.get_full_path("diffusion_models", model)
+                for model in models:
+                    if model:
+                        ckpt_path = folder_paths.get_full_path("checkpoints", model)
+                        diffusion_path = folder_paths.get_full_path("diffusion_models", model)
         
-                    if ckpt_path:
-                        modelhash = get_sha256(ckpt_path)[:10]
-                    elif diffusion_path:
-                        modelhash = get_sha256(diffusion_path)[:10]
-                    else:
-                        modelhash = ""
+                        if ckpt_path:
+                            modelhash = get_sha256(ckpt_path)[:10]
+                        elif diffusion_path:
+                            modelhash = get_sha256(diffusion_path)[:10]
+                        else:
+                            modelhash = ""
                     
-                    basemodelname = civitai_model_key_name(parse_checkpoint_name_without_extension(model))
-                    model_string[basemodelname] = modelhash
+                        basemodelname = civitai_model_key_name(parse_checkpoint_name_without_extension(model))
+                        model_string[basemodelname] = modelhash
 
-                    #model_string += f'"Model: {basemodelname}":"{modelhash}", '
+                        #model_string += f'"Model: {basemodelname}":"{modelhash}", '
+                        #model_string += f"Model hash: {modelhash}, Model: {basemodelname}, "
+                #cstr(f"model_string: {model_string}").msg.print()
 
-                    #model_string += f"Model hash: {modelhash}, Model: {basemodelname}, "
-                    
-            cstr(f"model_string: {model_string}").msg.print()
-
-            if sloras != "": 
+            if not sloras in (None, 'undefined', 'None') and sloras != "": 
                 positive += str(sloras) #add the loras to the prompt for PromptMetadataExtractor
 
             metadata_extractor = PromptMetadataExtractor([positive, negative])

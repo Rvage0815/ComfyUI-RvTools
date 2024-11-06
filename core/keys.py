@@ -12,6 +12,8 @@ class TEXTS(Enum):
 
 class CATEGORY(Enum):
     MAIN = "👣 RvTools"
+    DEPRECATED = "/🗑️ DEPRECATED"
+    CHECKPOINT = "/👄 Checkpoint"
     CONVERSION = "/🧬 Conversion"
     FOLDER = "/📂 Folder"
     IMAGE = "/🖼️ Image"

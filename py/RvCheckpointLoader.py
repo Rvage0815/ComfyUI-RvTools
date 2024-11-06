@@ -27,7 +27,7 @@ class RCheckpointLoader:
             },
         }
 
-    CATEGORY = CATEGORY.MAIN.value + CATEGORY.SETTINGS.value
+    CATEGORY = CATEGORY.MAIN.value + CATEGORY.CHECKPOINT.value
 
     RETURN_TYPES = ("MODEL", "VAE", "CLIP", "LATENT",)
     RETURN_NAMES = ("model", "vae", "clip", "latent",)
@@ -60,7 +60,7 @@ class RCheckpointLoader:
         return (ckpt[:3][0], vae, clip, {"samples": latent},)
 
 NODE_NAME = 'Checkpoint Loader // RvTools'
-NODE_DESC = 'Checkpoint Loader'
+NODE_DESC = 'Checkpoint Loader [DEPRECATED]'
 
 NODE_CLASS_MAPPINGS = {
    NODE_NAME: RCheckpointLoader

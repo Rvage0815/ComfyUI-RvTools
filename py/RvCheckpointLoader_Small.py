@@ -22,7 +22,7 @@ class RCheckpointLoaderSmall:
             },
         }
 
-    CATEGORY = CATEGORY.MAIN.value + CATEGORY.SETTINGS.value
+    CATEGORY = CATEGORY.MAIN.value + CATEGORY.CHECKPOINT.value
 
     RETURN_TYPES = ("MODEL", "VAE", "CLIP",)
     RETURN_NAMES = ("model", "vae", "clip",)
@@ -50,7 +50,7 @@ class RCheckpointLoaderSmall:
         return (ckpt[:3][0], vae, clip,)
 
 NODE_NAME = 'Checkpoint Loader (Small) // RvTools'
-NODE_DESC = 'Checkpoint Loader (Small)'
+NODE_DESC = 'Checkpoint Loader Small'
 
 NODE_CLASS_MAPPINGS = {
    NODE_NAME: RCheckpointLoaderSmall

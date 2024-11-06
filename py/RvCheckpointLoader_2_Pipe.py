@@ -52,7 +52,7 @@ class RCheckpointLoader_Pipe:
             },
         }
 
-    CATEGORY = CATEGORY.MAIN.value + CATEGORY.SETTINGS.value
+    CATEGORY = CATEGORY.MAIN.value + CATEGORY.CHECKPOINT.value
 
     RETURN_TYPES = ("pipe",)
     FUNCTION = "execute"
@@ -145,7 +145,7 @@ class RCheckpointLoader_Pipe:
         return (rlist,)
 
 NODE_NAME = 'Checkpoint Loader II (Pipe) // RvTools'
-NODE_DESC = 'Checkpoint Loader II (Pipe)'
+NODE_DESC = 'Checkpoint Loader v2 (Pipe)'
 
 NODE_CLASS_MAPPINGS = {
    NODE_NAME: RCheckpointLoader_Pipe

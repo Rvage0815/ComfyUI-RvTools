@@ -10,7 +10,7 @@ class RvPipe_Checkpoint_Loader_Small_OUT:
     def INPUT_TYPES(cls):
         return {"required": {"pipe": ("pipe",),}}
 
-    CATEGORY = CATEGORY.MAIN.value + CATEGORY.PIPE.value
+    CATEGORY = CATEGORY.MAIN.value + CATEGORY.CHECKPOINT.value
     RETURN_TYPES = ("pipe", "MODEL", "CLIP", "VAE", "INT",        "STRING",     "STRING",)
     RETURN_NAMES = ("pipe", "model", "clip", "vae", "batch_size", "model_name", "vae_name",)
 
@@ -22,7 +22,7 @@ class RvPipe_Checkpoint_Loader_Small_OUT:
         return pipe, model, clip, vae, batch_size, modelname, vae_name
 
 NODE_NAME = 'Checkpoint Loader Small Pipe-Out // RvTools'
-NODE_DESC = 'Checkpoint Loader Small Pipe-Out'
+NODE_DESC = 'Pipe In (Checkpoint Loader Small + v3)'
 
 NODE_CLASS_MAPPINGS = {
    NODE_NAME: RvPipe_Checkpoint_Loader_Small_OUT
