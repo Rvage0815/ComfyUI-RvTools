@@ -99,8 +99,8 @@ class RvFolders_ProjectFolder_v2:
            folder_name_parsed = format_variables(batch_folder_name, batch_no)
            new_path = os.path.join(new_path, folder_name_parsed)
 
-        if(resolution == "Custom"):
-            width, height = 512, 512
+        #if(resolution == "Custom"):
+            #width, height = 512, 512
         if(resolution == "512x512 (1:1)"):
             width, height = 512, 512
         if(resolution == "512x682 (3:4)"):
