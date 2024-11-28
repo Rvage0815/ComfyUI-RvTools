@@ -238,6 +238,16 @@ class RvImage_SaveImages:
                 civitai_name += " Karras"
             elif scheduler == "exponential":
                 civitai_name += " Exponential"
+            elif scheduler == "sgm_uniform":
+                civitai_name += " SGM Uniform"
+            elif scheduler == "simple":
+                civitai_name += " Simple"
+            elif scheduler == "ddim_uniform":
+                civitai_name += " DDIM Uniform"
+            elif scheduler == "beta":
+                civitai_name += " Beta"
+            elif scheduler == "linear_quadratic":
+                civitai_name += " Linear Quadratic"
 
             return civitai_name
         else:
